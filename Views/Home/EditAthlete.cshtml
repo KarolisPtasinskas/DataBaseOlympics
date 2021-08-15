@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model ParticipantsModel
+
+<h3>Edit athlete</h3>
+
+@using (Html.BeginForm("EditAthlete", "Home", FormMethod.Post))
+{
+    <div class="row mb-3">
+        <div class="mr-3">
+            @Html.EditorFor(x => x.Athlete.FirstName, new { @class = "form-control col-sm-12"})
+        </div>
+        <div class="mr-3">
+            @Html.EditorFor(x => x.Athlete.LastName, new { @class = "form-control col-sm-12"})
+        </div>
+        <div class="mr-3">
+            @Html.DropDownListFor(x => x.Athlete.Country, new SelectList(Model.AllCountries, "Id", "CountryName"), null, new { @class = "form-control" })
+        </div>
+        <div class="mr-3">
+            @Html.ListBoxFor(x => x.Athlete.Sports, new MultiSelectList(@Model.AllSports, "Id", "SportName"), new { id = "multiSelectDropDown", multiple = "multiple", style = "width:200px" })
+        </div>
+        <div>
+            @Html.HiddenFor(x => x.Athlete.Id)
+        </div>
+        <div>
+            <input type="submit" value="Save" class="btn btn-secondary" />
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Delete", "DeleteAthlete", "Home", new { id = $"{Model.Athlete.Id}" })
+</div>
+
+
+
+
+@section scripts {
+    <script>
+        $("#multiSelectDropDown").chosen();
+    </script>
+}

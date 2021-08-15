@@ -1,0 +1,24 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model CountryModel
+
+    <h3>Add new country</h3>
+
+@using (Html.BeginForm("AddCountry", "Countries", FormMethod.Post))
+{
+    <div class="row mb-3">
+        <div class="mr-3">
+            @Html.TextBoxFor(x => x.CountryName, new { @class = "form-control col-sm-12", placeholder = "Country name" })
+        </div>
+        <div class="mr-3">
+            @Html.TextBoxFor(x => x.UNDP, new { @class = "form-control col-sm-12", placeholder = "UNDP" })
+        </div>
+
+
+        <input type="submit" value="Add" class="btn btn-secondary" />
+    </div>
+}
