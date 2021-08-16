@@ -10,12 +10,12 @@
     @using (Html.BeginForm("SortAthletes", "Home", FormMethod.Post))
     {
         <div class="d-flex mb-3">
-            <p class="mr-3">Group by: </p>
-            <div class="mr-3">
+            <p class="col-md-2 font-weight-bold">Sort by: </p>
+            <div class="col-md-2">
                 @Html.DropDownListFor(x => x.OrderBy, new SelectList(Model.OrderByList), null, new { @class = "form-control" })
             </div>
             <div>
-                <input type="submit" value="Go" class="btn btn-secondary" />
+                <input type="submit" value="Go" class="btn btn-outline-dark" />
             </div>
         </div>
         @for (int i = 0; i < Model.AllAthletes.Count(); i++)
@@ -35,39 +35,42 @@
             {
                 @Html.HiddenFor(c => c.AllAthletes[i].SportsNames[b])
             }
-
-
         }
-        @*@for (int i = 0; i < Model.AllCountries.Count(); i++)
-            {
-                @Html.HiddenFor(x => x.AllCountries[i])
-            }
-            @for (int i = 0; i < Model.AllSports.Count(); i++)
-            {
-                @Html.HiddenFor(x => x.AllSports[i])
-            }
-            @for (int i = 0; i < Model.OrderByList.Count(); i++)
-            {
-                @Html.HiddenFor(x => x.OrderByList[i])
-            }*@
+
+        @for (int i = 0; i < Model.AllCountries.Count(); i++)
+        {
+            @Html.HiddenFor(x => x.AllCountries[i].Id)
+            @Html.HiddenFor(x => x.AllCountries[i].CountryName)
+            @Html.HiddenFor(x => x.AllCountries[i].UNDP)
+        }
+
+        @for (int i = 0; i < Model.AllSports.Count(); i++)
+        {
+            @Html.HiddenFor(x => x.AllSports[i].Id)
+            @Html.HiddenFor(x => x.AllSports[i].SportName)
+            @Html.HiddenFor(x => x.AllSports[i].TeamActivity)
+        }
     }
 
-
-    @*@using (Html.BeginForm("FilterAthletes", "Home", FormMethod.Post))
-            {
+    @using (Html.BeginForm("FilterAthletes", "Home", FormMethod.Post))
+    {
         <div class="d-flex mb-3">
-            <p class="mr-3">Filter by: </p>
-            <div class="mr-3">
-                @Html.DropDownListFor(x => x.FilterByList, new SelectList(Model.AllCountries, "CountryName", "CountryName"), null, new { @class = "form-control" })
+            <p class="col-md-2 font-weight-bold">Filter by: </p>
+            <div class="col-md-2">
+                @Html.DropDownListFor(x => x.FilterByList, new SelectList(Model.AllCountries, "Id", "CountryName"), null, new { @class = "form-control" })
             </div>
-            <div class="mr-3">
+            <div class="col-md-2">
                 @Html.DropDownListFor(x => x.FilterByList, new SelectList(Model.AllSports, "SportName", "SportName"), null, new { @class = "form-control" })
             </div>
             <div>
-                <input type="submit" value="Go" class="btn btn-secondary" />
+                <input type="submit" value="Go" class="btn btn-outline-dark" />
             </div>
         </div>
-            }*@
+    }
+
+    <div class="mb-3">
+        @Html.ActionLink("Add athlete", "NewAthlete", "Home", null, new { @class = "btn btn-warning"})
+    </div>
 
     <table class="table">
         <thead>
@@ -99,8 +102,6 @@
             }
         </tbody>
     </table>
-    <div>
-        @Html.ActionLink("Add athlete", "NewAthlete")
-    </div>
+
 
 </div>

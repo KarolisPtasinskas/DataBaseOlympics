@@ -10,12 +10,12 @@
 
 @using (Html.BeginForm("EditAthlete", "Home", FormMethod.Post))
 {
-    <div class="row mb-3">
+    <div class="d-flex my-3">
         <div class="mr-3">
-            @Html.EditorFor(x => x.Athlete.FirstName, new { @class = "form-control col-sm-12"})
+            @Html.EditorFor(x => x.Athlete.FirstName, new { htmlAttributes = new { @class = "form-control col-sm-12" }, })
         </div>
         <div class="mr-3">
-            @Html.EditorFor(x => x.Athlete.LastName, new { @class = "form-control col-sm-12"})
+            @Html.EditorFor(x => x.Athlete.LastName, new { htmlAttributes = new { @class = "form-control col-sm-12" }, })
         </div>
         <div class="mr-3">
             @Html.DropDownListFor(x => x.Athlete.Country, new SelectList(Model.AllCountries, "Id", "CountryName"), null, new { @class = "form-control" })
@@ -32,7 +32,7 @@
     </div>
 }
 <div>
-    @Html.ActionLink("Delete", "DeleteAthlete", "Home", new { id = $"{Model.Athlete.Id}" })
+    @Html.ActionLink("Delete", "DeleteAthlete", "Home", new { id = $"{Model.Athlete.Id}" }, new { @class= "btn btn-danger" })
 </div>
 
 

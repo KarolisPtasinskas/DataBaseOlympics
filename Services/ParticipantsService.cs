@@ -64,7 +64,7 @@ namespace DataBaseOlympics.Services
 
         ////
         //
-        //Grouping and Sorting
+        //filtering and Sorting
         //
         ////
 
@@ -88,18 +88,19 @@ namespace DataBaseOlympics.Services
             return participant;
         }
 
-        
-        //public ParticipantsModel FilterAthletes(ParticipantsModel info)
-        //{
-        //    ParticipantsModel participant = new()
-        //    {
-        //        AllAthletes = _athleteService.GetFilteredAthletes(info),
-        //        AllCountries = _countryDBService.GetAllCountries(),
-        //        AllSports = _sportDBService.GetAllSports()
-        //    };
 
-        //    return participant;
-        //}
+        public ParticipantsModel FilterAthletes(ParticipantsModel sendParticipant)
+        {
+            ParticipantsModel participant = new()
+
+            {
+                AllAthletes = _sortingFilteringService.FilteredAthletes(sendParticipant),
+                AllCountries = _countryDBService.GetAllCountries(),
+                AllSports = _sportDBService.GetAllSports()
+            };
+
+            return participant;
+        }
 
     }
 }

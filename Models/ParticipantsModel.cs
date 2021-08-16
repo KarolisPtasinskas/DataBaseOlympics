@@ -13,6 +13,8 @@ namespace DataBaseOlympics.Models
             {
                 "FirstName", "LastName", "Country"
             };
+
+            FilterByList = new();
         }
 
         public AthleteModel Athlete { get; set; }
@@ -23,7 +25,7 @@ namespace DataBaseOlympics.Models
         public List<SportModel> AllSports { get; set; }
         public string OrderBy { get; set; }
         public List<string> OrderByList { get; set; }
-
+        public List<string> FilterByList { get; set; }
     }
 
 

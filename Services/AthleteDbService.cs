@@ -85,7 +85,7 @@ namespace DataBaseOlympics.Services
             return allAthletes;
         }
 
-        public List<AthleteModel> AddSportsToAthletes(List<AthleteModel> allAthletes)
+        private List<AthleteModel> AddSportsToAthletes(List<AthleteModel> allAthletes)
         {
             _connection.Open();
             var command = new SqlCommand("SELECT [Athlete_id], [Sports_id], [SportName] FROM [dbo].[Athlete_Sports] LEFT JOIN [dbo].[Sports] ON [dbo].[Athlete_Sports].[Sports_id] = [dbo].[Sports].[id]", _connection);
