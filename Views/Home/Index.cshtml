@@ -7,7 +7,7 @@
 <div class="container">
     <h1 class="mb-5">List of all participating athletes</h1>
 
-    @using (Html.BeginForm("SortedAthletes", "Home", FormMethod.Post))
+    @using (Html.BeginForm("SortAthletes", "Home", FormMethod.Post))
     {
         <div class="d-flex mb-3">
             <p class="mr-3">Group by: </p>
@@ -18,55 +18,87 @@
                 <input type="submit" value="Go" class="btn btn-secondary" />
             </div>
         </div>
+        @for (int i = 0; i < Model.AllAthletes.Count(); i++)
+        {
+            @Html.HiddenFor(x => x.AllAthletes[i].Id)
+            @Html.HiddenFor(x => x.AllAthletes[i].FirstName)
+            @Html.HiddenFor(x => x.AllAthletes[i].LastName)
+            @Html.HiddenFor(x => x.AllAthletes[i].Country)
+            @Html.HiddenFor(x => x.AllAthletes[i].CountryName)
+            @Html.HiddenFor(x => x.AllAthletes[i].Sport)
+
+            @for (int a = 0; a < Model.AllAthletes[i].Sports.Count(); a++)
+            {
+                @Html.HiddenFor(c => c.AllAthletes[i].Sports[a])
+            }
+            @for (int b = 0; b < Model.AllAthletes[i].SportsNames.Count(); b++)
+            {
+                @Html.HiddenFor(c => c.AllAthletes[i].SportsNames[b])
+            }
+
+
+        }
+        @*@for (int i = 0; i < Model.AllCountries.Count(); i++)
+            {
+                @Html.HiddenFor(x => x.AllCountries[i])
+            }
+            @for (int i = 0; i < Model.AllSports.Count(); i++)
+            {
+                @Html.HiddenFor(x => x.AllSports[i])
+            }
+            @for (int i = 0; i < Model.OrderByList.Count(); i++)
+            {
+                @Html.HiddenFor(x => x.OrderByList[i])
+            }*@
     }
 
 
-    @using (Html.BeginForm("FilterAthletes", "Home", FormMethod.Post))
-    { 
-<div class="d-flex mb-3">
-    <p class="mr-3">Filter by: </p>
-    <div class="mr-3">
-        @Html.DropDownListFor(x => x.FilterByList, new SelectList(Model.AllCountries, "CountryName", "CountryName"), null, new { @class = "form-control" })
-    </div>
-    <div class="mr-3">
-        @Html.DropDownListFor(x => x.FilterByList, new SelectList(Model.AllSports, "SportName", "SportName"), null, new { @class = "form-control" })
-    </div>
-    <div>
-        <input type="submit" value="Go" class="btn btn-secondary" />
-    </div>
-</div>
-    }
+    @*@using (Html.BeginForm("FilterAthletes", "Home", FormMethod.Post))
+            {
+        <div class="d-flex mb-3">
+            <p class="mr-3">Filter by: </p>
+            <div class="mr-3">
+                @Html.DropDownListFor(x => x.FilterByList, new SelectList(Model.AllCountries, "CountryName", "CountryName"), null, new { @class = "form-control" })
+            </div>
+            <div class="mr-3">
+                @Html.DropDownListFor(x => x.FilterByList, new SelectList(Model.AllSports, "SportName", "SportName"), null, new { @class = "form-control" })
+            </div>
+            <div>
+                <input type="submit" value="Go" class="btn btn-secondary" />
+            </div>
+        </div>
+            }*@
 
-        <table class="table">
-            <thead>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Country</th>
+                <th scope="col">Discipline</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.AllAthletes)
+            {
                 <tr>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
-                    <th scope="col">Country</th>
-                    <th scope="col">Discipline</th>
-                    <th scope="col">Actions</th>
+                    <td>@item.FirstName</td>
+                    <td>@item.LastName</td>
+                    <td>@item.CountryName</td>
+                    <td>
+                        @foreach (var sport in item.SportsNames)
+                        {
+                            <p>@sport</p>
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "EditAthlete", "Home", new { id = $"{item.Id}" })
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.AllAthletes)
-                {
-                    <tr>
-                        <td>@item.FirstName</td>
-                        <td>@item.LastName</td>
-                        <td>@item.CountryName</td>
-                        <td>
-                            @foreach (var sport in item.SportsNames)
-                            {
-                                <p>@sport</p>
-                            }
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "EditAthlete", "Home", new { id = $"{item.Id}" })
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+            }
+        </tbody>
+    </table>
     <div>
         @Html.ActionLink("Add athlete", "NewAthlete")
     </div>

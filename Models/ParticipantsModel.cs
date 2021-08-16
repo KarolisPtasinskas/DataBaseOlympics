@@ -11,7 +11,7 @@ namespace DataBaseOlympics.Models
         {
             OrderByList = new List<string>()
             {
-                "FirstName", "LastName", "CountryName"
+                "FirstName", "LastName", "Country"
             };
         }
 
@@ -23,7 +23,6 @@ namespace DataBaseOlympics.Models
         public List<SportModel> AllSports { get; set; }
         public string OrderBy { get; set; }
         public List<string> OrderByList { get; set; }
-        public List<string> FilterByList { get; set; }
 
     }
 

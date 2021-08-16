@@ -30,7 +30,7 @@ namespace DataBaseOlympics.Controllers
                 return View(_participantsService.ShowAllAthletes());
             }
 
-            return View(_participantsService.ShowAllAthletes());
+            return View(participant);
         }
 
         public IActionResult NewAthlete()
@@ -42,7 +42,7 @@ namespace DataBaseOlympics.Controllers
         public IActionResult AddAthlete(ParticipantsModel participant)
         {
             _athleteService.AddAthlete(participant);
-            return View("Index", _participantsService.ShowAllAthletes());
+            return RedirectToAction("Index");
         }
 
         public IActionResult EditAthlete(int id)
@@ -54,13 +54,13 @@ namespace DataBaseOlympics.Controllers
         public IActionResult EditAthlete(ParticipantsModel participant)
         {
             _athleteService.EditAthlete(participant);
-            return View("Index", _participantsService.ShowAllAthletes());
+            return RedirectToAction("Index");
         }
 
         public IActionResult DeleteAthlete(int id)
         {
             _athleteService.DeleteAthlete(id);
-            return View("Index", _participantsService.ShowAllAthletes());
+            return RedirectToAction ("Index");
         }
 
         ////
@@ -68,18 +68,14 @@ namespace DataBaseOlympics.Controllers
         //Filtering and Sorting
         //
         ////
-
-        public IActionResult SortedAthletes(ParticipantsModel participant)
+        
+        public IActionResult SortAthletes(ParticipantsModel participant)
         {
             
-            return View("Index", _participantsService.SortedAthletes(participant));
+            ParticipantsModel newParticipant = _participantsService.SortedAthletes(participant);
+            return View("Index", newParticipant);
         }
 
-        //public IActionResult FilterAthletes(ParticipantsModel participant)
-        //{
-
-        //    return View("Index", _participantsService.FilterAthletes(participant));
-        //}
 
         public IActionResult Privacy()
         {

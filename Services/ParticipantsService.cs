@@ -14,13 +14,15 @@ namespace DataBaseOlympics.Services
         private AthleteDbService _athleteService;
         private CountryDBService _countryDBService;
         private SportDBService _sportDBService;
+        private SortingFilteringService _sortingFilteringService;
 
-        public ParticipantsService(SqlConnection connection, AthleteDbService athleteService, CountryDBService countryDBService, SportDBService sportDBService)
+        public ParticipantsService(SqlConnection connection, AthleteDbService athleteService, CountryDBService countryDBService, SportDBService sportDBService, SortingFilteringService sortingFilteringService)
         {
             _connection = connection;
             _athleteService = athleteService;
             _countryDBService = countryDBService;
             _sportDBService = sportDBService;
+            _sortingFilteringService = sortingFilteringService;
         }
 
         public ParticipantsModel GetAthlete(int id)
@@ -66,14 +68,22 @@ namespace DataBaseOlympics.Services
         //
         ////
 
-        public ParticipantsModel SortedAthletes(ParticipantsModel info)
+        public ParticipantsModel SortedAthletes(ParticipantsModel participant)
         {
-            ParticipantsModel participant = new()
+            switch (participant.OrderBy)
             {
-                AllAthletes = _athleteService.GetAllGroupedAthletes(info),
-                AllCountries = _countryDBService.GetAllCountries(),
-                AllSports = _sportDBService.GetAllSports()
-            };
+                case "FirstName":
+                    participant = _sortingFilteringService.SortAthletesByName(participant);
+                    break;
+
+                case "LastName":
+                    participant = _sortingFilteringService.SortAthletesByLastName(participant);
+                    break;
+
+                case "Country":
+                    participant = _sortingFilteringService.SortAthletesByCountry(participant);
+                    break;
+            }
 
             return participant;
         }

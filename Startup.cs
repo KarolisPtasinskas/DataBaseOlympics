@@ -31,6 +31,7 @@ namespace DataBaseOlympics
             services.AddScoped<CountryDBService>();
             services.AddScoped<SportDBService>();
             services.AddScoped<ParticipantsService>();
+            services.AddScoped<SortingFilteringService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
