@@ -57,10 +57,10 @@
         <div class="d-flex mb-3">
             <p class="col-md-2 font-weight-bold">Filter by: </p>
             <div class="col-md-2">
-                @Html.DropDownListFor(x => x.FilterByList, new SelectList(Model.AllCountries, "Id", "CountryName"), null, new { @class = "form-control" })
+                @Html.DropDownListFor(x => x.FilterByList, new SelectList(Model.AllCountries, "Id", "CountryName"), "Select country", new { @class = "form-control" })
             </div>
             <div class="col-md-2">
-                @Html.DropDownListFor(x => x.FilterByList, new SelectList(Model.AllSports, "SportName", "SportName"), null, new { @class = "form-control" })
+                @Html.DropDownListFor(x => x.FilterByList, new SelectList(Model.AllSports, "SportName", "SportName"), "Select sport", new { @class = "form-control" })
             </div>
             <div>
                 <input type="submit" value="Go" class="btn btn-outline-dark" />

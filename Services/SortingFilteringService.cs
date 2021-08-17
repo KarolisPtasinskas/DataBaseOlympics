@@ -44,10 +44,20 @@ namespace DataBaseOlympics.Services
         
         public List<AthleteModel> FilteredAthletes(ParticipantsModel participant)
         {
+            var countryToFilter = "";
+            var sportToFilter = participant.FilterByList[1];
+
+
+            if (participant.FilterByList[0] != null)
+            {
+                countryToFilter = $"WHERE [dbo].[Athletes].[Country] = {participant.FilterByList[0]}";
+            }
+
+
             List<AthleteModel> athletes = new();
 
             _connection.Open();
-            var command = new SqlCommand($"SELECT [Id], [FirstName], [LastName], [Country], (SELECT [CountryName] FROM [dbo].[Countries] WHERE [dbo].[Athletes].[Country] = [dbo].[Countries].[id]) FROM [dbo].[Athletes] WHERE [dbo].[Athletes].[Country] = {participant.FilterByList[0]}", _connection);
+            var command = new SqlCommand($"SELECT [Id], [FirstName], [LastName], [Country], (SELECT [CountryName] FROM [dbo].[Countries] WHERE [dbo].[Athletes].[Country] = [dbo].[Countries].[id]) FROM [dbo].[Athletes] {countryToFilter}", _connection);
             var reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -68,7 +78,12 @@ namespace DataBaseOlympics.Services
 
             var allAthletes = AddSportsToAthletes(athletes);
 
-            allAthletes = allAthletes.Where(a => a.SportsNames.Contains($"{participant.FilterByList[1]}")).ToList();
+            if (sportToFilter == null)
+            {
+                return allAthletes;
+            }
+
+            allAthletes = allAthletes.Where(a => a.SportsNames.Contains($"{sportToFilter}")).ToList();
 
             return allAthletes;
         }
