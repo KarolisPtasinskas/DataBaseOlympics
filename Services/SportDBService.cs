@@ -16,6 +16,7 @@ namespace DataBaseOlympics.Services
             _connection = connection;
         }
 
+        //SELECT all sports from DB
         public List<SportModel> GetAllSports()
         {
             List<SportModel> sports = new();
@@ -39,6 +40,7 @@ namespace DataBaseOlympics.Services
             return sports;
         }
 
+        //INSERT sport to DB
         public void AddSport(SportModel sport)
         {
             _connection.Open();

@@ -50,26 +50,44 @@
             @Html.HiddenFor(x => x.AllSports[i].SportName)
             @Html.HiddenFor(x => x.AllSports[i].TeamActivity)
         }
+
+        @for (int i = 0; i < Model.FilterByList.Count(); i++)
+        {
+            @Html.HiddenFor(x => x.FilterByList[i])
+        }
+
     }
 
     @using (Html.BeginForm("FilterAthletes", "Home", FormMethod.Post))
     {
-        <div class="d-flex mb-3">
-            <p class="col-md-2 font-weight-bold">Filter by: </p>
-            <div class="col-md-2">
-                @Html.DropDownListFor(x => x.FilterByList, new SelectList(Model.AllCountries, "Id", "CountryName"), "Select country", new { @class = "form-control" })
-            </div>
-            <div class="col-md-2">
-                @Html.DropDownListFor(x => x.FilterByList, new SelectList(Model.AllSports, "SportName", "SportName"), "Select sport", new { @class = "form-control" })
-            </div>
-            <div>
-                <input type="submit" value="Go" class="btn btn-outline-dark" />
-            </div>
+<div class="d-flex mb-3">
+    <p class="col-md-2 font-weight-bold">Filter by: </p>
+    <div class="col-md-2">
+        @Html.DropDownListFor(x => x.FilterByList[0], new SelectList(Model.AllCountries, "Id", "CountryName"), "All countries", new { @class = "form-control" })
+    </div>
+    <div class="col-md-2">
+        @Html.DropDownListFor(x => x.FilterByList[1], new SelectList(Model.AllSports, "SportName", "SportName"), "All sports", new { @class = "form-control" })
+    </div>
+    <div>
+        <input type="submit" value="Go" class="btn btn-outline-dark" />
+    </div>
+    @if (Model.FilterByList[0] != "" || Model.FilterByList[1] != "")
+    {
+        <div class="col-md-2">
+            @Html.ActionLink("Remove filter", "Index", "Home", null, new { @class = "btn btn-outline-primary" })
         </div>
     }
 
+    @for (int i = 0; i < Model.FilterByList.Count(); i++)
+    {
+        @Html.HiddenFor(x => x.FilterByList[i])
+    }
+
+</div>
+    }
+
     <div class="mb-3">
-        @Html.ActionLink("Add athlete", "NewAthlete", "Home", null, new { @class = "btn btn-warning"})
+        @Html.ActionLink("Add athlete", "NewAthlete", "Home", null, new { @class = "btn btn-warning" })
     </div>
 
     <table class="table">

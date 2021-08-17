@@ -25,6 +25,7 @@ namespace DataBaseOlympics.Services
             _sortingFilteringService = sortingFilteringService;
         }
 
+        //From DB one athlete
         public ParticipantsModel GetAthlete(int id)
         {
             ParticipantsModel participant = new()
@@ -37,6 +38,7 @@ namespace DataBaseOlympics.Services
             return participant;
         }
 
+        //From DB all athletes
         public ParticipantsModel ShowAllAthletes()
         {
             ParticipantsModel participant = new()
@@ -49,6 +51,7 @@ namespace DataBaseOlympics.Services
             return participant;
         }
 
+        //Sending model to view, to create new athlete
         public ParticipantsModel AddParticipant()
         {
             ParticipantsModel participant = new()
@@ -96,7 +99,12 @@ namespace DataBaseOlympics.Services
             {
                 AllAthletes = _sortingFilteringService.FilteredAthletes(sendParticipant),
                 AllCountries = _countryDBService.GetAllCountries(),
-                AllSports = _sportDBService.GetAllSports()
+                AllSports = _sportDBService.GetAllSports(),
+                FilterByList = new()
+                {
+                    sendParticipant.FilterByList[0],
+                    sendParticipant.FilterByList[1]
+                }
             };
 
             return participant;

@@ -47,7 +47,7 @@ namespace DataBaseOlympics.Services
             var countryToFilter = "";
             var sportToFilter = participant.FilterByList[1];
 
-
+            //Check if country not null
             if (participant.FilterByList[0] != null)
             {
                 countryToFilter = $"WHERE [dbo].[Athletes].[Country] = {participant.FilterByList[0]}";
@@ -78,6 +78,7 @@ namespace DataBaseOlympics.Services
 
             var allAthletes = AddSportsToAthletes(athletes);
 
+            //Check if sport not null
             if (sportToFilter == null)
             {
                 return allAthletes;

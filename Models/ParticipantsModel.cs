@@ -14,7 +14,10 @@ namespace DataBaseOlympics.Models
                 "FirstName", "LastName", "Country"
             };
 
-            FilterByList = new();
+            FilterByList = new List<string>()
+            {
+                "", ""
+            };
         }
 
         public AthleteModel Athlete { get; set; }

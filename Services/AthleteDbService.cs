@@ -16,6 +16,7 @@ namespace DataBaseOlympics.Services
             _connection = connection;
         }
 
+        //SELECT 1 athlete from DB
         public AthleteModel GetAthlete(int getId)
         {
             AthleteModel athlete = new();
@@ -41,6 +42,7 @@ namespace DataBaseOlympics.Services
             return completeAthlete;
         }
 
+        //SELECT sports from DB and adding to athlete
         public AthleteModel AddSportsToAthlete(AthleteModel athlete)
         {
             _connection.Open();
@@ -55,7 +57,7 @@ namespace DataBaseOlympics.Services
             return athlete;
         }
 
-
+        //SELECT all athletes
         public List<AthleteModel> GetAllAthletes()
         {
             List<AthleteModel> athletes = new();
@@ -85,6 +87,7 @@ namespace DataBaseOlympics.Services
             return allAthletes;
         }
 
+        //SELECT sports from DB and adding to all athletes
         private List<AthleteModel> AddSportsToAthletes(List<AthleteModel> allAthletes)
         {
             _connection.Open();
@@ -107,6 +110,7 @@ namespace DataBaseOlympics.Services
             return allAthletes;
         }
 
+        //INSERTING athlete to DB
         public void AddAthlete(ParticipantsModel participant)
         {
             _connection.Open();
@@ -125,7 +129,7 @@ namespace DataBaseOlympics.Services
             
         }
 
-        
+        //UPDATING athlete in DB
         public void EditAthlete(ParticipantsModel participant)
         {
             _connection.Open();
@@ -148,7 +152,7 @@ namespace DataBaseOlympics.Services
 
         }
 
-        
+        //DELETING athlete from DB
         public void DeleteAthlete(int id)
         {
             _connection.Open();
@@ -196,16 +200,5 @@ namespace DataBaseOlympics.Services
 
             return allAthletes;
         }
-
-
-        
-        //public List<AthleteModel> GetFilteredAthletes(ParticipantsModel participant)
-        //{
-
-
-        //    var allAthletes = AddSportsToAthletes(athletes);
-
-        //    return allAthletes;
-        //}
     }
 }

@@ -76,14 +76,11 @@ namespace DataBaseOlympics.Controllers
             return View("Index", newParticipant);
         }
         
-
         public IActionResult FilterAthletes(ParticipantsModel participant)
         {
             ParticipantsModel newParticipant = _participantsService.FilterAthletes(participant);
             return View("Index", newParticipant);
         }
-
-
 
         public IActionResult Privacy()
         {

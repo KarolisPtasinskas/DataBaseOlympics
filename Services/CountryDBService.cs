@@ -16,6 +16,7 @@ namespace DataBaseOlympics.Services
             _connection = connection;
         }
 
+        //SELECT all countrys from DB
         public List<CountryModel> GetAllCountries()
         {
             List<CountryModel> countries = new();
@@ -39,6 +40,7 @@ namespace DataBaseOlympics.Services
             return countries;
         }
 
+        //INSERT country to DB
         public void AddCountry(CountryModel country)
         {
             _connection.Open();
